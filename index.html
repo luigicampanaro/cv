@@ -33,15 +33,20 @@
             <h1 id="fullName"><span class="name-split"></span></h1>
             <p class="subtitle" id="jobTitle"></p>
             <p class="contact-info" id="location"></p>
-            <p class="contact-info">
-                <a id="emailLink" href=""></a> · <a id="linkedinLink" target="_blank">LinkedIn</a>
-            </p>
+            <div class="contact-info contact-links">
+                <a id="emailLink" href="">
+                    <span class="logo">✉️</span> <span class="text"></span>
+                </a>
+                <a id="linkedinLink" target="_blank">
+                    <span class="logo">🔗</span> <span class="text">LinkedIn</span>
+                </a>
+            </div>
         </header>
 
         <section id="projects">
             <div class="section-header">
-                <h2 class="section-title">Projects in Action</h2>
-                <p class="section-subtitle">Building the future of robotics through innovation and hands-on research</p>
+                <h2 class="section-title">Selected Projects</h2>
+                <p class="section-subtitle">A portfolio of research and engineering projects spanning academic and independent work.</p>
             </div>
             <div class="video-grid" id="projectsGrid">
             </div>
@@ -154,7 +159,7 @@
 
         const emailLink = document.getElementById('emailLink');
         emailLink.href = `mailto:${cvData.personalInfo.email}`;
-        emailLink.textContent = cvData.personalInfo.email;
+        emailLink.querySelector('.text').textContent = cvData.personalInfo.email; // MODIFICATION: Target the .text span
 
         const linkedinLink = document.getElementById('linkedinLink');
         // FIX: Ensure the href is set correctly for the LinkedIn link

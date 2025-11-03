@@ -184,15 +184,39 @@ body {
     margin-top: 8px;
 }
 
+/* MODIFICATION: New style for the contact links container */
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Increased spacing between the two links */
+    margin-top: 15px; /* Adjust top margin for better separation */
+}
+
 .contact-info a {
     color: var(--apple-text);
     text-decoration: none;
     transition: opacity 0.3s;
+    /* MODIFICATION: Use flex for the link content */
+    display: flex;
+    align-items: center;
 }
 
 .contact-info a:hover {
     opacity: 0.6;
 }
+
+/* MODIFICATION: Style for the logo and text within the link */
+.contact-info a .logo {
+    font-size: 1.2em;
+    line-height: 1;
+    margin-right: 6px; /* Space between logo and text */
+}
+
+.contact-info a .text {
+    /* Optional: Ensure text wraps correctly if it were longer */
+    white-space: nowrap; 
+}
+
 
 /* Section Styling */
 section {

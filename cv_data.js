@@ -14,33 +14,33 @@ const dataTemplate = {
             // MODIFICATION: Using full URL, start, and end
             url: "https://www.youtube.com/watch?v=KSQD553VBH4",
             start: 0, // Start video at 0 seconds
-            end: 53,   // End video at 53 seconds
-            title: "Differentiable IK with Torch",
-            caption: "Differentiable IK with Torch & 6-DoF Joystick"
+            end: 40,   // End video at 53 seconds
+            title: "Deep-RL locomotion controller",
+            caption: "Highly robust legged robot trained with Deep RL"
         },
         {
             // MODIFICATION: Using full URL (youtu.be format), start, and end
             url: "https://youtu.be/6H6nOK-wYZo",
             start: 0, // Start video at 0 seconds
-            end: 53,   // End video at 53 seconds
-            title: "Differentiable IK with Torch",
-            caption: "Differentiable IK with Torch & 6-DoF Joystick"
+            end: 52,   // End video at 53 seconds
+            title: "Differentiable IK",
+            caption: "Custom Differentiable IK & 6-Axis Joystick"
         },
         {
             // MODIFICATION: Using full URL (youtu.be format), start, and end
             url: "https://youtu.be/fWkwXNmpbcM",
-            start: 0,  // Start video at 0 seconds
-            end: 30,   // End video at 30 seconds
-            title: "Custom Bimanual Setup",
-            caption: "EPFL Custom Bimanual Setup"
+            start: 268,  // Start video at 0 seconds
+            end: 412,   // End video at 30 seconds
+            title: "Data collection",
+            caption: "Effective data collection for complex tasks"
         },
         {
             // MODIFICATION: Using full URL (YouTube Shorts format), start, and end
             url: "https://youtube.com/shorts/WuG9PR8-IJ0",
             start: 15, // Start video at 15 seconds
             end: 60,   // End video at 60 seconds
-            title: "Fourth Project Video",
-            caption: "Advanced Manipulation Research"
+            title: "Bi-manual teleop",
+            caption: "Bi-manual teleoperation"
         }
     ],
     experience: [
@@ -52,24 +52,24 @@ const dataTemplate = {
         {
             title: "Visiting Postdoctoral Researcher",
             meta: "University of Oxford · Oxford · March 2024 - April 2025",
-            description: "Engineered a differentiable Inverse Kinematics solution using Torch and developed a 6-DoF joystick, drastically reducing cost compared to commercial alternatives."
+            description: "Building a modular ML framework for robotics that sped up development, enabling users to test diverse training strategies and neural architectures using parallelized GPU training, logging, and hyperparameter optimization from a single config file."
         },
         {
             title: "EPSRC Doctoral Prize Fellowship",
             meta: "The Open University · Milton Keynes · March 2024 - April 2025",
-            description: "Designed and fabricated custom UMI-style grippers, performing extensive testing on various object manipulations (e.g., burger and pizza making)."
+            description: "Building a modular ML framework for robotics that sped up development, enabling users to test diverse training strategies and neural architectures using parallelized GPU training, logging, and hyperparameter optimization from a single config file."
         }
     ],
     education: [
         {
             title: "PhD in Robotics & AI",
             meta: "University of Oxford · Oxford · Oct. 2018 - Oct. 2023",
-            description: "Thesis: Streamlined Domain Randomization for Sim-to-Real Transfer in Deep-Reinforcement Learning."
+            description: "Thesis: Streamlined Sim-to-Real Transfer for Deep-Reinforcement Learning in Robotics Locomotion."
         },
         {
             title: "MSc-exchange in Soft-Robotics",
             meta: "EPFL (École Polytechnique Fédérale de Lausanne) · Lausanne · Oct. 2017 - Mar. 2018",
-            description: "Project: Sensor integration and controller design for a tensegrity-modular robot."
+            description: "Thesis: Sensor integration and controller design for a tensegrity-modular robot."
         },
         {
             title: "MSc in Mechatronic Engineering",
@@ -83,7 +83,7 @@ const dataTemplate = {
     skills: [
         {
             category: "Programming",
-            details: "Python (Torch, NumPy), C++, Matlab/Octave"
+            details: "Python (Torch, NumPy), Applied LLMs (ChatGPT, Gemini, Claude, etc.), C++, Matlab/Octave"
         },
         {
             category: "Software & Tools",
@@ -102,18 +102,23 @@ const dataTemplate = {
         {
             paperTitle: "\"Learning and Deploying Robust Locomotion Policies with Minimal Dynamics Randomization\"",
             authors: "<strong>Campanaro L.</strong>, Gangapurwala S., Merkt W., Havoutis I.",
-            url: "https://example.com/publication1"
+            url: "https://doi.org/10.48550/arXiv.2209.12878"
         },
         {
             paperTitle: "\"Roll-Drop: accounting for observation noise with a single parameter\"",
             authors: "<strong>Campanaro L.</strong>, De Martini D., Gangapurwala S., Merkt W., Havoutis I.",
-            url: "https://example.com/publication2"
+            url: "https://doi.org/10.48550/arXiv.2304.13150"
         },
         {
             paperTitle: "\"Learning Low-Frequency Motion Control for Robust and Dynamic Robot Locomotion\"",
             authors: "Gangapurwala S., <strong>Campanaro L.</strong>, Havoutis I.",
-            url: "https://example.com/publication3"
-        }
+            url: "https://doi.org/10.48550/arXiv.2209.14887"
+        },
+        {
+            paperTitle: "\"CPG-ACTOR: Reinforcement Learning for Central Pattern Generators\"",
+            authors: "<strong>Campanaro L.</strong>, Gangapurwala S., De Martini D., Merkt W., Havoutis I.",
+            url: "https://arxiv.org/abs/2102.12891"
+        },
     ],
     awards: [
         "<strong>World Championship:</strong> 1st & 3rd place RoboCraft by FJ, Bari, Jan. 2016",
