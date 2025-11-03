@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="cvTitle">Robotics CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo" id="navLogo"></a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#publications">Publications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <div class="profile-photo-container">
+                <img src="profile.jpg" alt="Your Profile Picture" class="profile-photo">
+            </div>
+            <h1 id="fullName"><span class="name-split"></span></h1>
+            <p class="subtitle" id="jobTitle"></p>
+            <p class="contact-info" id="location"></p>
+            <p class="contact-info">
+                <a id="emailLink" href=""></a> · <a id="linkedinLink" target="_blank">LinkedIn</a>
+            </p>
+        </header>
+
+        <section id="projects">
+            <div class="section-header">
+                <h2 class="section-title">Projects in Action</h2>
+                <p class="section-subtitle">Building the future of robotics through innovation and hands-on research</p>
+            </div>
+            <div class="video-grid" id="projectsGrid">
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="cv-section">
+                <h2>Work Experience</h2>
+                <div id="experienceEntries">
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="cv-section">
+                <h2>Education</h2>
+                <div id="educationEntries">
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="cv-section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid" id="skillsGrid">
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <div class="cv-section">
+                <h2>Selected Publications</h2>
+                <ul class="publications-list" id="publicationsList">
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="cv-section">
+                <h2>Awards and Honors</h2>
+                <ul class="awards-list" id="awardsList">
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="cv-section">
+                <h2>Academic Services</h2>
+                <ul class="publications-list" id="academicServicesList">
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text" id="footerText"></p>
+        </div>
+    </footer>
+
+    <script src="cv_data.js"></script>
+    <script>
+        // Navbar scroll effect (existing from your original code)
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links (MODIFIED)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // IMPORTANT: Only prevent default for internal links
+                if (this.href.includes('#')) {
+                    e.preventDefault();
+
+                    // Check if the link is the navLogo which should scroll to the very top (0)
+                    if (this.id === 'navLogo') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        return; // Prevent further execution for navLogo
+                    }
+
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 44;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // --- Dynamic content population using cvData from cv_data.js ---
+        document.getElementById('cvTitle').textContent = `Robotics CV - ${cvData.personalInfo.name}`;
+        document.getElementById('navLogo').textContent = cvData.personalInfo.name;
+        // FIX: Update to set inner HTML for the span
+        // Change: Display name on a single line
+        document.querySelector('#fullName .name-split').textContent = cvData.personalInfo.name;
+        document.getElementById('jobTitle').textContent = cvData.personalInfo.title;
+        document.getElementById('location').textContent = cvData.personalInfo.location;
+
+        const emailLink = document.getElementById('emailLink');
+        emailLink.href = `mailto:${cvData.personalInfo.email}`;
+        emailLink.textContent = cvData.personalInfo.email;
+
+        const linkedinLink = document.getElementById('linkedinLink');
+        // FIX: Ensure the href is set correctly for the LinkedIn link
+        linkedinLink.href = cvData.personalInfo.linkedin;
+
+        // Populate Projects
+        const projectsGrid = document.getElementById('projectsGrid');
+        // Array to hold the YouTube player objects
+        let players = []; 
+
+        cvData.projects.forEach((project, index) => {
+            // MODIFICATION: Function to extract YouTube ID from a full URL, supporting watch, youtu.be, and shorts
+            const getYoutubeId = (url) => {
+                // Regex updated to include common YouTube formats: watch?v=, v/, u/, embed/, &v=, youtu.be/, and shorts/
+                const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                // Return the 11-character ID if a match is found
+                return (match && match[2].length === 11) ? match[2] : null;
+            };
+
+            const videoId = getYoutubeId(project.url);
+            // Unique ID for the iframe container
+            const iframeId = `Youtubeer-${index}`;
+
+            // MODIFICATION: Construct the YouTube embed URL WITHOUT autoplay/mute, only loop and modestbranding for clean look
+            // The actual autoplay/mute will be handled by the YouTube Player API
+            const embedUrl = `https://www.youtube.com/embed/${videoId}?version=3&loop=1&playlist=${videoId}&start=${project.start}&end=${project.end}&rel=0&modestbranding=1&controls=0&disablekb=1&showinfo=0&iv_load_policy=3&enablejsapi=1`;
+
+            const videoItem = document.createElement('div');
+            videoItem.className = 'video-item';
+            // MODIFICATION: Add data attributes to the video item for easy reference
+            videoItem.setAttribute('data-video-id', videoId);
+            videoItem.setAttribute('data-start', project.start);
+            videoItem.setAttribute('data-end', project.end);
+
+            videoItem.innerHTML = `
+                <div class="video-wrapper">
+                    <iframe id="${iframeId}" src="${embedUrl}"
+                        title="${project.title}" frameborder="0"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="video-caption">${project.caption}</p>
+            `;
+            projectsGrid.appendChild(videoItem);
+        });
+
+        // --- YouTube Player API Functions for Autoplay and Mute ---
+        // This function is called automatically by the YouTube Player API script
+        function onYouTubeIframeAPIReady() {
+            // Loop through all project video data
+            cvData.projects.forEach((project, index) => {
+                const iframeId = `Youtubeer-${index}`;
+                
+                // Create a new YT.Player object
+                const player = new YT.Player(iframeId, {
+                    events: {
+                        'onReady': onPlayerReady, // Call this when player is ready
+                        'onStateChange': onPlayerStateChange // Call this on state changes (e.g., video ends)
+                    }
+                });
+                players.push(player);
+            });
+        }
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+        function onPlayerReady(event) {
+            // 1. Mute the video immediately (crucial for silent autoplay policy)
+            event.target.mute(); 
+            // 2. Start playing the video
+            event.target.playVideo(); 
+        }
+
+        function onPlayerStateChange(event) {
+            // Get the start and end times from the data attributes
+            const videoItem = event.target.getIframe().closest('.video-item');
+            const startTime = parseInt(videoItem.getAttribute('data-start'));
+            const endTime = parseInt(videoItem.getAttribute('data-end'));
+
+            // Check if the video has ended (state 0) or is buffering/unstarted before the loop logic
+            if (event.data === YT.PlayerState.ENDED) {
+                // If it ends, seek back to the start time and play to enforce looping of the segment
+                event.target.seekTo(startTime, true);
+                event.target.playVideo();
+            }
+
+            // Fallback for an event where current time might exceed end time but state hasn't changed to ENDED
+            if (event.data === YT.PlayerState.PLAYING) {
+                 const checkTime = setInterval(() => {
+                    if (event.target.getCurrentTime() >= endTime) {
+                        event.target.seekTo(startTime, true);
+                    }
+                }, 100); // Check every 100ms
+                event.target.getIframe().dataset.interval = checkTime; // Store interval ID
+
+            } else {
+                 // Clear interval when not playing to avoid memory leak
+                const intervalId = event.target.getIframe().dataset.interval;
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    delete event.target.getIframe().dataset.interval;
+                }
+            }
+        }
+
+
+        // Populate Experience
+        const experienceEntries = document.getElementById('experienceEntries');
+        cvData.experience.forEach(entry => {
+            const div = document.createElement('div');
+            div.className = 'entry';
+            div.innerHTML = `
+                <h3>${entry.title}</h3>
+                <p class="meta">${entry.meta}</p>
+                ${entry.description ? `<p class="description">${entry.description}</p>` : ''}
+            `;
+            experienceEntries.appendChild(div);
+        });
+
+        // Populate Education
+        const educationEntries = document.getElementById('educationEntries');
+        cvData.education.forEach(entry => {
+            const div = document.createElement('div');
+            div.className = 'entry';
+            div.innerHTML = `
+                <h3>${entry.title}</h3>
+                <p class="meta">${entry.meta}</p>
+                ${entry.description ? `<p class="description">${entry.description}</p>` : ''}
+            `;
+            educationEntries.appendChild(div);
+        });
+
+        // Populate Skills
+        const skillsGrid = document.getElementById('skillsGrid');
+        cvData.skills.forEach(skill => {
+            const div = document.createElement('div');
+            div.className = 'skill-item';
+            div.innerHTML = `
+                <strong>${skill.category}</strong>
+                <span>${skill.details}</span>
+            `;
+            skillsGrid.appendChild(div);
+        });
+
+        // Populate Publications
+        const publicationsList = document.getElementById('publicationsList');
+        cvData.publications.forEach(publication => {
+            const li = document.createElement('li');
+            // MODIFICATION: Display paperTitle, then a line break, then authors
+            li.innerHTML = `
+                ${publication.paperTitle}
+                <br>
+                ${publication.authors}
+                <br>
+                <a href="${publication.url}" target="_blank" class="publication-link">
+                    View Publication &rarr;
+                </a>
+            `;
+            publicationsList.appendChild(li);
+        });
+
+        // Populate Awards
+        const awardsList = document.getElementById('awardsList');
+        cvData.awards.forEach(award => {
+            const li = document.createElement('li');
+            li.innerHTML = award; // Use innerHTML as content might contain strong tags
+            awardsList.appendChild(li);
+        });
+
+        // Populate Academic Services
+        const academicServicesList = document.getElementById('academicServicesList');
+        cvData.academicServices.forEach(service => {
+            const li = document.createElement('li');
+            li.innerHTML = service;
+            academicServicesList.appendChild(li);
+        });
+
+        // Populate Footer
+        document.getElementById('footerText').textContent = cvData.footer.copyright;
+
+    </script>
+</body>
+
+</html>

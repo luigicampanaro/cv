@@ -1,0 +1,570 @@
+/* style.css */
+:root {
+    --apple-white: #ffffff;
+    --apple-bg: #f5f5f7;
+    --apple-text: #1d1d1f;
+    --apple-secondary: #6e6e73;
+    --apple-light-border: #d2d2d7;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+    background: var(--apple-white);
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 44px;
+    transition: all 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.navbar.scrolled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.nav-content {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.nav-logo {
+    /* FIX: Set a slight negative top position to shift the text up 1px, 
+       ensuring the 'g' descender clears the 44px navbar height. */
+    font-size: 21px; 
+    line-height: 1.0; /* Ensure minimal vertical space around text */
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--apple-text);
+    position: relative; 
+    top: -1px;
+    /* MODIFICATION: Remove text decoration for the new <a> tag */
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--apple-text);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.8;
+    transition: all 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--apple-text);
+    transition: width 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hero Header */
+.header {
+    background: var(--apple-white);
+    padding: 80px 22px 100px;
+    text-align: center;
+    position: relative;
+}
+
+.profile-photo-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.profile-photo-container:hover .profile-photo {
+    transform: scale(1.08);
+}
+
+.header h1 {
+    font-size: 64px;
+    line-height: 1.45;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: var(--apple-text);
+    margin-bottom: 20px;
+    background: linear-gradient(180deg, #1d1d1f 0%, #4a4a4a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    color: var(--apple-text);
+    margin-bottom: 12px;
+}
+
+.contact-info {
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-secondary);
+    margin-top: 8px;
+}
+
+.contact-info a {
+    color: var(--apple-text);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.contact-info a:hover {
+    opacity: 0.6;
+}
+
+/* Section Styling */
+section {
+    padding: 100px 22px;
+    border-bottom: 1px solid var(--apple-light-border);
+}
+
+section:nth-child(even) {
+    background: var(--apple-bg);
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-title {
+    font-size: 56px;
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--apple-text);
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    font-size: 21px;
+    line-height: 1.4;
+    font-weight: 400;
+    letter-spacing: 0.011em;
+    color: var(--apple-secondary);
+    max-width: 660px;
+    margin: 0 auto;
+}
+
+/* Video Grid */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.video-item {
+    background: var(--apple-white);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.28, 0.11, 0.32, 1);
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.video-item:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.15),
+        0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive iframe container - CRUCIAL for video embedding */
+.video-wrapper {
+    position: relative;
+    background: #000;
+    /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    /* Stretch iframe to fill the container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+}
+
+.video-caption {
+    padding: 24px;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+    text-align: center;
+}
+
+/* CV Sections */
+.cv-section {
+    max-width: 692px;
+    margin: 0 auto;
+}
+
+.cv-section h2 {
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--apple-text);
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.cv-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--apple-text);
+    opacity: 0.3;
+}
+
+.entry {
+    margin-bottom: 45px;
+    padding-bottom: 45px;
+    border-bottom: 1px solid var(--apple-light-border);
+    transition: all 0.4s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.entry:hover {
+    transform: translateX(8px);
+}
+
+.entry h3 {
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--apple-text);
+    margin-bottom: 10px;
+}
+
+.entry .meta {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-secondary);
+    margin-bottom: 14px;
+}
+
+.entry .description {
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 20px;
+}
+
+.skill-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--apple-light-border);
+    transition: all 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.skill-item:hover {
+    transform: translateY(-2px);
+}
+
+.skill-item strong {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.skill-item span {
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-secondary);
+}
+
+/* Publications List */
+.publications-list,
+.awards-list {
+    list-style: none;
+    padding: 0;
+}
+
+.publications-list li,
+.awards-list li {
+    margin-bottom: 28px;
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: var(--apple-text);
+    padding-left: 24px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.publications-list li:hover,
+.awards-list li:hover {
+    transform: translateX(4px);
+}
+
+.publications-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--apple-text);
+    position: absolute;
+    left: 0;
+    top: 11px;
+    border-radius: 50%;
+}
+
+.awards-list li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    top: 0;
+    color: var(--apple-text);
+}
+
+.publications-list li strong,
+.awards-list li strong {
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    background: var(--apple-bg);
+    padding: 50px 22px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--apple-secondary);
+}
+
+.footer-text a {
+    color: var(--apple-text);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.footer-text a:hover {
+    opacity: 0.6;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 1068px) {
+    .container {
+        max-width: 692px;
+    }
+
+    .nav-content {
+        max-width: 692px;
+    }
+
+    .video-grid {
+        max-width: 692px;
+    }
+}
+
+@media only screen and (max-width: 734px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .nav-content {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+    }
+
+    .header {
+        padding: 60px 16px 80px;
+    }
+
+    .header h1 {
+        /* FIX: Reduced font size and significantly relaxed letter spacing for uncluttered look */
+        font-size: 40px; 
+        letter-spacing: -0.2px;
+    }
+
+    .subtitle {
+        font-size: 22px;
+    }
+
+    .profile-photo-container {
+        width: 140px;
+        height: 140px;
+    }
+
+    section {
+        padding: 70px 16px;
+    }
+
+    .section-title {
+        font-size: 40px;
+        letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+        font-size: 19px;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .cv-section {
+        max-width: 100%;
+    }
+
+    .cv-section h2 {
+        font-size: 36px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--apple-text);
+}
