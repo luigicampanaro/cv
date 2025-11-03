@@ -234,35 +234,52 @@
             event.target.playVideo(); 
         }
 
+        // --- CORRECTED onPlayerStateChange FUNCTION ---
         function onPlayerStateChange(event) {
-            // Get the start and end times from the data attributes
-            const videoItem = event.target.getIframe().closest('.video-item');
+            const iframe = event.target.getIframe();
+            const videoItem = iframe.closest('.video-item');
             const startTime = parseInt(videoItem.getAttribute('data-start'));
             const endTime = parseInt(videoItem.getAttribute('data-end'));
 
-            // Check if the video has ended (state 0) or is buffering/unstarted before the loop logic
+            // Get the current interval ID associated with this iframe
+            const currentIntervalId = iframe.dataset.interval;
+
+            // Function to clear the interval
+            const clearIntervalCheck = () => {
+                if (currentIntervalId) {
+                    clearInterval(parseInt(currentIntervalId));
+                    delete iframe.dataset.interval;
+                }
+            };
+
+            // 1. If the video ends (state 0), seek back to start and play
             if (event.data === YT.PlayerState.ENDED) {
-                // If it ends, seek back to the start time and play to enforce looping of the segment
+                clearIntervalCheck();
                 event.target.seekTo(startTime, true);
                 event.target.playVideo();
+                return;
             }
 
-            // Fallback for an event where current time might exceed end time but state hasn't changed to ENDED
+            // 2. If the video is playing (state 1), start the time check loop
             if (event.data === YT.PlayerState.PLAYING) {
-                 const checkTime = setInterval(() => {
+                // Clear any existing interval before starting a new one
+                clearIntervalCheck();
+
+                // Start a new interval to check the current time
+                const checkTime = setInterval(() => {
+                    // Check if current time is near or past the defined end time
                     if (event.target.getCurrentTime() >= endTime) {
+                        // If it is, seek back to the start time and play
                         event.target.seekTo(startTime, true);
                     }
-                }, 100); // Check every 100ms
-                event.target.getIframe().dataset.interval = checkTime; // Store interval ID
+                }, 100); // Check every 100ms for precision
+
+                // Store the new interval ID on the iframe element
+                iframe.dataset.interval = checkTime.toString();
 
             } else {
-                 // Clear interval when not playing to avoid memory leak
-                const intervalId = event.target.getIframe().dataset.interval;
-                if (intervalId) {
-                    clearInterval(intervalId);
-                    delete event.target.getIframe().dataset.interval;
-                }
+                // 3. Clear the interval when the video is not playing (paused, buffering, etc.)
+                clearIntervalCheck();
             }
         }
 
