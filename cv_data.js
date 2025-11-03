@@ -73,11 +73,11 @@ const dataTemplate = {
         },
         {
             title: "MSc in Mechatronic Engineering",
-            meta: "Politecnico di Torino · Turin · Sep. 2016 - Apr. 2018"
+            meta: "Politecnico di Torino · Turin · Jan. 2016 - Apr. 2018"
         },
         {
             title: "BSc in Mechanical Engineering",
-            meta: "Politecnico di Bari"
+            meta: "Politecnico di Bari · Bari · Sep. 2012 - Dec. 2015"
         }
     ],
     skills: [
